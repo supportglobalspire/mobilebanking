@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Global Spire Credit Union | Secure Banking</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s; }
         .gradient-bg { background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0f766e 100%); }
         .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.2); }
         .glass-dark { background: rgba(30, 41, 59, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
@@ -37,25 +35,60 @@
         .locked-overlay { position: absolute; inset: 0; background: rgba(127, 29, 29, 0.9); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 50; border-radius: 1.5rem; }
         .image-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
         .image-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+        body.dark-mode { background-color: #0f172a; color: #e2e8f0; }
+        body.dark-mode .bg-white { background-color: #1e293b; }
+        body.dark-mode .bg-slate-50 { background-color: #0f172a; }
+        body.dark-mode .text-slate-800 { color: #e2e8f0; }
+        body.dark-mode .text-slate-900 { color: #f1f5f9; }
+        body.dark-mode .text-slate-600 { color: #94a3b8; }
+        body.dark-mode .text-slate-500 { color: #64748b; }
+        body.dark-mode .text-slate-700 { color: #cbd5e1; }
+        body.dark-mode .border-slate-200 { border-color: #334155; }
+        body.dark-mode .border-slate-700 { border-color: #475569; }
+        body.dark-mode .bg-slate-100 { background-color: #334155; }
+        body.dark-mode .bg-slate-800 { background-color: #1e293b; }
+        body.dark-mode .bg-slate-700 { background-color: #334155; }
+        body.dark-mode .hover\:bg-slate-100:hover { background-color: #334155; }
+        body.dark-mode .hover\:bg-slate-50:hover { background-color: #1e293b; }
+        body.dark-mode .bg-blue-100 { background-color: rgba(59, 130, 246, 0.2); }
+        body.dark-mode .bg-emerald-100 { background-color: rgba(16, 185, 129, 0.2); }
+        body.dark-mode .bg-purple-100 { background-color: rgba(168, 85, 247, 0.2); }
+        body.dark-mode .bg-pink-100 { background-color: rgba(236, 72, 153, 0.2); }
+        body.dark-mode .bg-orange-100 { background-color: rgba(249, 115, 22, 0.2); }
+        body.dark-mode .bg-indigo-100 { background-color: rgba(99, 102, 241, 0.2); }
+        body.dark-mode .bg-red-100 { background-color: rgba(239, 68, 68, 0.2); }
+        body.dark-mode .glass-card { background: rgba(30, 41, 59, 0.95); border-color: rgba(255, 255, 255, 0.1); }
+        body.dark-mode #notifications-panel { background-color: #1e293b; }
+        body.dark-mode #mobile-menu { background-color: #1e293b; border-color: #334155; }
+        .theme-toggle { transition: transform 0.3s ease; }
+        .theme-toggle:hover { transform: rotate(20deg); }
     </style>
-</head>
+<script src="https://www.kimi.com/sdk-seed.js" defer=""></script></head>
 <body class="bg-slate-50 text-slate-800 overflow-x-hidden">
     <nav class="fixed w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-md shadow-sm" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
-                <div class="flex items-center space-x-3 cursor-pointer" onclick="showPage('landing-page')">
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="showPage(&#39;landing-page&#39;)">
                     <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-teal-500 rounded-xl flex items-center justify-center">
                         <i data-lucide="landmark" class="w-6 h-6 text-white"></i>
                     </div>
                     <span class="text-2xl font-bold text-slate-800 tracking-tight">Global Spire</span>
                 </div>
                 <div class="hidden md:flex items-center space-x-4" id="nav-links">
+                    <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-slate-100 transition theme-toggle" title="Toggle Dark Mode">
+                        <i data-lucide="moon" id="theme-icon" class="w-5 h-5 text-slate-600"></i>
+                    </button>
                     <button onclick="toggleLoginModal()" class="text-slate-600 hover:text-blue-600 font-medium transition">Sign In</button>
                     <button onclick="showSignupPage()" class="bg-slate-900 text-white px-6 py-2.5 rounded-full font-medium hover:bg-slate-800 transition transform hover:scale-105">Open Account</button>
                 </div>
-                <button class="md:hidden p-2" onclick="toggleMobileMenu()">
-                    <i data-lucide="menu" class="w-6 h-6"></i>
-                </button>
+                <div class="flex items-center space-x-2 md:hidden">
+                    <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-slate-100 transition theme-toggle">
+                        <i data-lucide="moon" id="theme-icon-mobile" class="w-5 h-5 text-slate-600"></i>
+                    </button>
+                    <button class="p-2" onclick="toggleMobileMenu()">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
             </div>
         </div>
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
@@ -82,7 +115,7 @@
                             </span>
                             <span class="text-emerald-300 text-sm font-medium">Now Serving 2M+ Members Worldwide</span>
                         </div>
-                        <h1 class="text-5xl lg:text-7xl font-bold text-white leading-tight">Banking Without <br><span class="text-gradient">Borders</span></h1>
+                        <h1 class="text-5xl lg:text-7xl font-bold text-white leading-tight">Banking Without <br/><span class="text-gradient">Borders</span></h1>
                         <p class="text-xl text-slate-300 max-w-xl mx-auto lg:mx-0 leading-relaxed">Experience secure, seamless banking with real-time transfers, advanced fraud protection, and 24/7 access to your finances.</p>
                         <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                             <button onclick="showSignupPage()" class="bg-white text-slate-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-slate-100 transition transform hover:scale-105 shadow-2xl flex items-center justify-center space-x-2"><span>Open Account</span><i data-lucide="arrow-right" class="w-5 h-5"></i></button>
@@ -95,7 +128,7 @@
                     </div>
                     <div class="relative lg:block hidden">
                         <div class="relative floating">
-                            <img src="images/banking-hero.jpg" alt="Digital Banking" class="rounded-3xl shadow-2xl max-w-md mx-auto w-full">
+                            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=600&amp;h=500&amp;fit=crop" alt="Digital Banking" class="rounded-3xl shadow-2xl max-w-md mx-auto w-full"/>
                         </div>
                     </div>
                 </div>
@@ -110,7 +143,7 @@
                 </div>
                 <div class="grid md:grid-cols-3 gap-8">
                     <div class="image-card bg-slate-50 rounded-3xl overflow-hidden">
-                        <img src="images/secure-banking.jpg" alt="Secure Banking" class="w-full h-48 object-cover">
+                        <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&amp;h=300&amp;fit=crop" alt="Secure Banking" class="w-full h-48 object-cover"/>
                         <div class="p-6">
                             <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
                                 <i data-lucide="shield-check" class="w-6 h-6 text-blue-600"></i>
@@ -120,7 +153,7 @@
                         </div>
                     </div>
                     <div class="image-card bg-slate-50 rounded-3xl overflow-hidden">
-                        <img src="images/global-transfer.jpg" alt="Global Transfers" class="w-full h-48 object-cover">
+                        <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=600&amp;h=300&amp;fit=crop" alt="Global Transfers" class="w-full h-48 object-cover"/>
                         <div class="p-6">
                             <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-4">
                                 <i data-lucide="globe" class="w-6 h-6 text-emerald-600"></i>
@@ -130,7 +163,7 @@
                         </div>
                     </div>
                     <div class="image-card bg-slate-50 rounded-3xl overflow-hidden">
-                        <img src="images/mobile-banking.jpg" alt="Mobile Banking" class="w-full h-48 object-cover">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&amp;h=300&amp;fit=crop" alt="Mobile Banking" class="w-full h-48 object-cover"/>
                         <div class="p-6">
                             <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
                                 <i data-lucide="smartphone" class="w-6 h-6 text-purple-600"></i>
@@ -139,6 +172,120 @@
                             <p class="text-slate-500">Manage your finances on the go with our award-winning mobile app.</p>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-slate-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="order-2 lg:order-1">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&amp;h=500&amp;fit=crop" alt="Global Spire Headquarters" class="rounded-3xl shadow-2xl w-full"/>
+                    </div>
+                    <div class="order-1 lg:order-2 space-y-6">
+                        <h2 class="text-4xl font-bold text-slate-900">Our Global Presence</h2>
+                        <p class="text-lg text-slate-500">With headquarters in major financial centers around the world, Global Spire Credit Union serves over 2 million members across 50 countries. Our state-of-the-art facilities combine cutting-edge technology with personalized service.</p>
+                        <div class="grid grid-cols-3 gap-6 pt-4">
+                            <div class="text-center">
+                                <h3 class="text-3xl font-bold text-blue-600">50+</h3>
+                                <p class="text-sm text-slate-500">Countries</p>
+                            </div>
+                            <div class="text-center">
+                                <h3 class="text-3xl font-bold text-blue-600">2M+</h3>
+                                <p class="text-sm text-slate-500">Members</p>
+                            </div>
+                            <div class="text-center">
+                                <h3 class="text-3xl font-bold text-blue-600">$50B</h3>
+                                <p class="text-sm text-slate-500">Assets Managed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6">
+                        <h2 class="text-4xl font-bold text-slate-900">Next-Generation Banking</h2>
+                        <p class="text-lg text-slate-500">Step into the future of finance with our innovative digital banking platform. Experience seamless transactions, real-time analytics, and AI-powered financial insights.</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-center space-x-3">
+                                <div class="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center">
+                                    <i data-lucide="check" class="w-4 h-4 text-emerald-600"></i>
+                                </div>
+                                <span class="text-slate-700">AI-Powered Financial Insights</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <div class="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center">
+                                    <i data-lucide="check" class="w-4 h-4 text-emerald-600"></i>
+                                </div>
+                                <span class="text-slate-700">Real-Time Transaction Tracking</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <div class="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center">
+                                    <i data-lucide="check" class="w-4 h-4 text-emerald-600"></i>
+                                </div>
+                                <span class="text-slate-700">Biometric Security Authentication</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <div class="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center">
+                                    <i data-lucide="check" class="w-4 h-4 text-emerald-600"></i>
+                                </div>
+                                <span class="text-slate-700">24/7 Global Customer Support</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&amp;h=500&amp;fit=crop" alt="Modern Banking Interior" class="rounded-3xl shadow-2xl w-full"/>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-gradient-to-br from-blue-900 via-slate-900 to-teal-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-white mb-4">Premium Banking Solutions</h2>
+                    <p class="text-xl text-slate-300 max-w-2xl mx-auto">From everyday banking to wealth management, we have solutions tailored to your needs</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/20 transition">
+                        <img src="https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=400&amp;h=200&amp;fit=crop" alt="Premium Cards" class="w-full h-32 object-cover rounded-xl mb-4"/>
+                        <h3 class="text-lg font-bold text-white mb-2">Premium Cards</h3>
+                        <p class="text-slate-300 text-sm">Exclusive rewards and benefits with our platinum card series.</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/20 transition">
+                        <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&amp;h=200&amp;fit=crop" alt="Investment Tools" class="w-full h-32 object-cover rounded-xl mb-4"/>
+                        <h3 class="text-lg font-bold text-white mb-2">Smart Investing</h3>
+                        <p class="text-slate-300 text-sm">AI-powered investment recommendations and portfolio management.</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/20 transition">
+                        <div class="w-full h-32 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl mb-4 flex items-center justify-center">
+                            <i data-lucide="piggy-bank" class="w-12 h-12 text-white"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Savings Goals</h3>
+                        <p class="text-slate-300 text-sm">Set and track your financial goals with automated savings.</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/20 transition">
+                        <div class="w-full h-32 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl mb-4 flex items-center justify-center">
+                            <i data-lucide="briefcase" class="w-12 h-12 text-white"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Business Banking</h3>
+                        <p class="text-slate-300 text-sm">Complete business solutions from startup to enterprise.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-slate-50">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-4xl font-bold text-slate-900 mb-6">Ready to Get Started?</h2>
+                <p class="text-xl text-slate-500 mb-8">Join millions of satisfied members and experience banking without borders today.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="showSignupPage()" class="bg-gradient-to-r from-blue-600 to-teal-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-xl transition transform hover:scale-105">Open Your Account</button>
+                    <button onclick="toggleLoginModal()" class="bg-white text-slate-900 border-2 border-slate-200 px-8 py-4 rounded-full font-bold text-lg hover:bg-slate-50 transition">Sign In</button>
                 </div>
             </div>
         </section>
@@ -152,7 +299,7 @@
             </div>
             <div class="relative max-w-md w-full mx-4">
                 <div class="glass-card rounded-3xl p-8 shadow-2xl">
-                    <button onclick="showPage('landing-page')" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600">
+                    <button onclick="showPage(&#39;landing-page&#39;)" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600">
                         <i data-lucide="arrow-left" class="w-6 h-6"></i>
                     </button>
                     <div class="text-center mb-8">
@@ -166,34 +313,34 @@
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-sm font-medium text-slate-700 mb-1">First Name</label>
-                                <input type="text" id="signup-firstname" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" placeholder="John">
+                                <input type="text" id="signup-firstname" required="" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" placeholder="John"/>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-slate-700 mb-1">Last Name</label>
-                                <input type="text" id="signup-lastname" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" placeholder="Doe">
+                                <input type="text" id="signup-lastname" required="" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" placeholder="Doe"/>
                             </div>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
-                            <input type="email" id="signup-email" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" placeholder="john@example.com">
+                            <input type="email" id="signup-email" required="" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" placeholder="john@example.com"/>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-slate-700 mb-1">Phone Number</label>
-                            <input type="tel" id="signup-phone" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" placeholder="+1 (555) 000-0000">
+                            <input type="tel" id="signup-phone" required="" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" placeholder="+1 (555) 000-0000"/>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-slate-700 mb-1">Password</label>
                             <div class="relative">
-                                <input type="password" id="signup-password" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" placeholder="Create password">
-                                <button type="button" onclick="togglePassword('signup-password')" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400"><i data-lucide="eye" class="w-5 h-5"></i></button>
+                                <input type="password" id="signup-password" required="" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" placeholder="Create password"/>
+                                <button type="button" onclick="togglePassword(&#39;signup-password&#39;)" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400"><i data-lucide="eye" class="w-5 h-5"></i></button>
                             </div>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-slate-700 mb-1">Confirm Password</label>
-                            <input type="password" id="signup-confirm" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" placeholder="Confirm password">
+                            <input type="password" id="signup-confirm" required="" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" placeholder="Confirm password"/>
                         </div>
                         <div class="flex items-center">
-                            <input type="checkbox" id="signup-terms" required class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500">
+                            <input type="checkbox" id="signup-terms" required="" class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/>
                             <label for="signup-terms" class="ml-2 text-sm text-slate-600">I agree to the <a href="#" class="text-blue-600 hover:underline">Terms of Service</a> and <a href="#" class="text-blue-600 hover:underline">Privacy Policy</a></label>
                         </div>
                         <div id="signup-error" class="hidden text-red-500 text-sm text-center"></div>
@@ -203,7 +350,7 @@
                         </button>
                     </form>
                     <div class="mt-6 text-center">
-                        <p class="text-slate-500 text-sm">Already have an account? <button onclick="showPage('landing-page'); toggleLoginModal();" class="text-blue-600 hover:underline font-medium">Sign In</button></p>
+                        <p class="text-slate-500 text-sm">Already have an account? <button onclick="showPage(&#39;landing-page&#39;); toggleLoginModal();" class="text-blue-600 hover:underline font-medium">Sign In</button></p>
                     </div>
                 </div>
             </div>
@@ -218,7 +365,7 @@
                     <i data-lucide="wifi-off" class="w-8 h-8 text-red-600"></i>
                 </div>
                 <h2 class="text-2xl font-bold text-slate-900 mb-2">Network Error</h2>
-                <p class="text-slate-500 mb-6">We're experiencing technical difficulties processing your request. Please try again later or contact our support team.</p>
+                <p class="text-slate-500 mb-6">We&#39;re experiencing technical difficulties processing your request. Please try again later or contact our support team.</p>
                 <div class="bg-slate-50 rounded-xl p-4 mb-6 text-left">
                     <p class="text-sm text-slate-600 mb-2"><strong>Error Code:</strong> NET-500</p>
                     <p class="text-sm text-slate-600"><strong>Status:</strong> Connection Failed</p>
@@ -242,19 +389,19 @@
                 <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
-                        <input type="email" id="login-email" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" placeholder="Enter your email">
+                        <input type="email" id="login-email" required="" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" placeholder="Enter your email"/>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1">Password</label>
                         <div class="relative">
-                            <input type="password" id="login-password" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" placeholder="Enter password">
-                            <button type="button" onclick="togglePassword('login-password')" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400"><i data-lucide="eye" class="w-5 h-5"></i></button>
+                            <input type="password" id="login-password" required="" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" placeholder="Enter password"/>
+                            <button type="button" onclick="togglePassword(&#39;login-password&#39;)" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400"><i data-lucide="eye" class="w-5 h-5"></i></button>
                         </div>
                     </div>
                     <div id="login-error" class="hidden text-red-500 text-sm text-center"></div>
                     <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-teal-500 text-white py-4 rounded-xl font-bold text-lg hover:shadow-lg transition transform hover:scale-[1.02] flex items-center justify-center space-x-2"><span id="login-btn-text">Sign In</span><div id="login-loader" class="loader hidden"></div></button>
                 </form>
-                <div class="mt-6 text-center"><a href="#" onclick="alert('Please contact support to reset your password'); return false;" class="text-blue-600 text-sm hover:underline">Forgot password?</a></div>
+                <div class="mt-6 text-center"><a href="#" onclick="alert(&#39;Please contact support to reset your password&#39;); return false;" class="text-blue-600 text-sm hover:underline">Forgot password?</a></div>
             </div>
         </div>
     </div>
@@ -272,13 +419,13 @@
                 <form id="admin-login-form" onsubmit="handleAdminLogin(event)" class="space-y-4">
                     <div>
                         <label class="block text-sm font-medium text-slate-300 mb-1">Admin Username</label>
-                        <input type="text" id="admin-username" required class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-600 text-white focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition" placeholder="Enter username">
+                        <input type="text" id="admin-username" required="" class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-600 text-white focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition" placeholder="Enter username"/>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-300 mb-1">Admin Password</label>
                         <div class="relative">
-                            <input type="password" id="admin-password" required class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-600 text-white focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition" placeholder="Enter password">
-                            <button type="button" onclick="togglePassword('admin-password')" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400"><i data-lucide="eye" class="w-5 h-5"></i></button>
+                            <input type="password" id="admin-password" required="" class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-600 text-white focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition" placeholder="Enter password"/>
+                            <button type="button" onclick="togglePassword(&#39;admin-password&#39;)" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400"><i data-lucide="eye" class="w-5 h-5"></i></button>
                         </div>
                     </div>
                     <div id="admin-login-error" class="hidden text-red-400 text-sm text-center"></div>
@@ -293,10 +440,13 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                 <div class="flex justify-between items-center">
                     <div class="flex items-center space-x-4">
-                        <button onclick="showPage('landing-page')" class="text-slate-600 hover:text-slate-900"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
+                        <button onclick="showPage(&#39;landing-page&#39;)" class="text-slate-600 hover:text-slate-900"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
                         <h1 class="text-2xl font-bold text-slate-900">My Dashboard</h1>
                     </div>
                     <div class="flex items-center space-x-4">
+                        <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-slate-100 transition theme-toggle" title="Toggle Dark Mode">
+                            <i data-lucide="moon" id="dashboard-theme-icon" class="w-5 h-5 text-slate-600"></i>
+                        </button>
                         <button onclick="toggleNotifications()" class="relative p-2 text-slate-600 hover:text-slate-900"><i data-lucide="bell" class="w-6 h-6"></i><span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full notification-badge"></span></button>
                         <button onclick="showSettings()" class="flex items-center space-x-2 p-2 text-slate-600 hover:text-slate-900"><i data-lucide="settings" class="w-6 h-6"></i></button>
                         <button onclick="logout()" class="p-2 text-red-600 hover:text-red-700"><i data-lucide="log-out" class="w-6 h-6"></i></button>
@@ -343,10 +493,10 @@
                     </div>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <button onclick="showTransferModal()" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition text-center group"><div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition"><i data-lucide="send" class="w-6 h-6 text-blue-600"></i></div><span class="text-sm font-medium text-slate-700">Transfer</span></button>
-                        <button onclick="showQuickAction('bills')" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition text-center group"><div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition"><i data-lucide="receipt" class="w-6 h-6 text-emerald-600"></i></div><span class="text-sm font-medium text-slate-700">Pay Bills</span></button>
-                        <button onclick="showQuickAction('tv')" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition text-center group"><div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition"><i data-lucide="tv" class="w-6 h-6 text-purple-600"></i></div><span class="text-sm font-medium text-slate-700">TV Sub</span></button>
-                        <button onclick="showQuickAction('gift')" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition text-center group"><div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition"><i data-lucide="gift" class="w-6 h-6 text-pink-600"></i></div><span class="text-sm font-medium text-slate-700">Gift Friend</span></button>
-                        <button onclick="showQuickAction('atm')" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition text-center group"><div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition"><i data-lucide="banknote" class="w-6 h-6 text-orange-600"></i></div><span class="text-sm font-medium text-slate-700">ATM/Cheque</span></button>
+                        <button onclick="showQuickAction(&#39;bills&#39;)" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition text-center group"><div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition"><i data-lucide="receipt" class="w-6 h-6 text-emerald-600"></i></div><span class="text-sm font-medium text-slate-700">Pay Bills</span></button>
+                        <button onclick="showQuickAction(&#39;tv&#39;)" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition text-center group"><div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition"><i data-lucide="tv" class="w-6 h-6 text-purple-600"></i></div><span class="text-sm font-medium text-slate-700">TV Sub</span></button>
+                        <button onclick="showQuickAction(&#39;gift&#39;)" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition text-center group"><div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition"><i data-lucide="gift" class="w-6 h-6 text-pink-600"></i></div><span class="text-sm font-medium text-slate-700">Gift Friend</span></button>
+                        <button onclick="showQuickAction(&#39;atm&#39;)" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition text-center group"><div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition"><i data-lucide="banknote" class="w-6 h-6 text-orange-600"></i></div><span class="text-sm font-medium text-slate-700">ATM/Cheque</span></button>
                         <button onclick="showHistory()" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition text-center group"><div class="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition"><i data-lucide="history" class="w-6 h-6 text-slate-600"></i></div><span class="text-sm font-medium text-slate-700">History</span></button>
                         <button onclick="showSettings()" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition text-center group"><div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition"><i data-lucide="settings" class="w-6 h-6 text-indigo-600"></i></div><span class="text-sm font-medium text-slate-700">Settings</span></button>
                         <button onclick="logout()" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition text-center group"><div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition"><i data-lucide="log-out" class="w-6 h-6 text-red-600"></i></div><span class="text-sm font-medium text-slate-700">Logout</span></button>
@@ -383,11 +533,11 @@
                 <h2 class="text-2xl font-bold text-slate-900 mb-6">Transfer Funds</h2>
                 <form id="transfer-form" onsubmit="handleTransfer(event)" class="space-y-4">
                     <div><label class="block text-sm font-medium text-slate-700 mb-1">From Account</label><select id="from-account" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 outline-none"><option value="checking">Checking Account (...4521)</option><option value="savings">Savings Account (...8834)</option></select></div>
-                    <div><label class="block text-sm font-medium text-slate-700 mb-1">Select Bank</label><div class="relative"><input type="text" id="bank-search" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 outline-none" placeholder="Search US banks..." onkeyup="filterBanks()"><i data-lucide="search" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5"></i></div><div id="bank-list" class="mt-2 max-h-40 overflow-y-auto border border-slate-200 rounded-xl hidden"></div></div>
-                    <div><label class="block text-sm font-medium text-slate-700 mb-1">Account Number</label><input type="text" id="recipient-account" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 outline-none" placeholder="Enter recipient account number"></div>
-                    <div><label class="block text-sm font-medium text-slate-700 mb-1">Amount</label><div class="relative"><span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-500 font-bold">$</span><input type="number" id="transfer-amount" required min="1" step="0.01" class="w-full pl-8 pr-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 outline-none" placeholder="0.00"></div></div>
-                    <div><label class="block text-sm font-medium text-slate-700 mb-1">Transfer PIN</label><input type="password" id="transfer-pin" required maxlength="4" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 outline-none" placeholder="Enter 4-digit PIN"></div>
-                    <div><label class="block text-sm font-medium text-slate-700 mb-1">Description (Optional)</label><input type="text" id="transfer-desc" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 outline-none" placeholder="What's this for?"></div>
+                    <div><label class="block text-sm font-medium text-slate-700 mb-1">Select Bank</label><div class="relative"><input type="text" id="bank-search" required="" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 outline-none" placeholder="Search US banks..." onkeyup="filterBanks()"/><i data-lucide="search" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5"></i></div><div id="bank-list" class="mt-2 max-h-40 overflow-y-auto border border-slate-200 rounded-xl hidden"></div></div>
+                    <div><label class="block text-sm font-medium text-slate-700 mb-1">Account Number</label><input type="text" id="recipient-account" required="" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 outline-none" placeholder="Enter recipient account number"/></div>
+                    <div><label class="block text-sm font-medium text-slate-700 mb-1">Amount</label><div class="relative"><span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-500 font-bold">$</span><input type="number" id="transfer-amount" required="" min="1" step="0.01" class="w-full pl-8 pr-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 outline-none" placeholder="0.00"/></div></div>
+                    <div><label class="block text-sm font-medium text-slate-700 mb-1">Transfer PIN</label><input type="password" id="transfer-pin" required="" maxlength="4" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 outline-none" placeholder="Enter 4-digit PIN"/></div>
+                    <div><label class="block text-sm font-medium text-slate-700 mb-1">Description (Optional)</label><input type="text" id="transfer-desc" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 outline-none" placeholder="What&#39;s this for?"/></div>
                     <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-teal-500 text-white py-4 rounded-xl font-bold text-lg hover:shadow-lg transition">Continue Transfer</button>
                 </form>
             </div>
@@ -402,15 +552,15 @@
                 <h2 class="text-2xl font-bold text-slate-900 mb-2">Enter OTP</h2>
                 <p class="text-slate-500 mb-6">Enter the 6-digit code sent to your registered mobile number</p>
                 <div class="flex justify-center space-x-2 mb-6">
-                    <input type="text" maxlength="1" class="otp-input w-12 h-12 text-center text-2xl font-bold border-2 border-slate-200 rounded-xl focus:border-blue-500 outline-none" onkeyup="moveOtpFocus(0)">
-                    <input type="text" maxlength="1" class="otp-input w-12 h-12 text-center text-2xl font-bold border-2 border-slate-200 rounded-xl focus:border-blue-500 outline-none" onkeyup="moveOtpFocus(1)">
-                    <input type="text" maxlength="1" class="otp-input w-12 h-12 text-center text-2xl font-bold border-2 border-slate-200 rounded-xl focus:border-blue-500 outline-none" onkeyup="moveOtpFocus(2)">
-                    <input type="text" maxlength="1" class="otp-input w-12 h-12 text-center text-2xl font-bold border-2 border-slate-200 rounded-xl focus:border-blue-500 outline-none" onkeyup="moveOtpFocus(3)">
-                    <input type="text" maxlength="1" class="otp-input w-12 h-12 text-center text-2xl font-bold border-2 border-slate-200 rounded-xl focus:border-blue-500 outline-none" onkeyup="moveOtpFocus(4)">
-                    <input type="text" maxlength="1" class="otp-input w-12 h-12 text-center text-2xl font-bold border-2 border-slate-200 rounded-xl focus:border-blue-500 outline-none" onkeyup="moveOtpFocus(5)">
+                    <input type="text" maxlength="1" class="otp-input w-12 h-12 text-center text-2xl font-bold border-2 border-slate-200 rounded-xl focus:border-blue-500 outline-none" onkeyup="moveOtpFocus(0)"/>
+                    <input type="text" maxlength="1" class="otp-input w-12 h-12 text-center text-2xl font-bold border-2 border-slate-200 rounded-xl focus:border-blue-500 outline-none" onkeyup="moveOtpFocus(1)"/>
+                    <input type="text" maxlength="1" class="otp-input w-12 h-12 text-center text-2xl font-bold border-2 border-slate-200 rounded-xl focus:border-blue-500 outline-none" onkeyup="moveOtpFocus(2)"/>
+                    <input type="text" maxlength="1" class="otp-input w-12 h-12 text-center text-2xl font-bold border-2 border-slate-200 rounded-xl focus:border-blue-500 outline-none" onkeyup="moveOtpFocus(3)"/>
+                    <input type="text" maxlength="1" class="otp-input w-12 h-12 text-center text-2xl font-bold border-2 border-slate-200 rounded-xl focus:border-blue-500 outline-none" onkeyup="moveOtpFocus(4)"/>
+                    <input type="text" maxlength="1" class="otp-input w-12 h-12 text-center text-2xl font-bold border-2 border-slate-200 rounded-xl focus:border-blue-500 outline-none" onkeyup="moveOtpFocus(5)"/>
                 </div>
                 <button onclick="verifyOTP()" class="w-full bg-gradient-to-r from-blue-600 to-teal-500 text-white py-4 rounded-xl font-bold text-lg hover:shadow-lg transition mb-4">Verify OTP</button>
-                <p class="text-sm text-slate-400">Didn't receive code? <button class="text-blue-600 hover:underline">Resend</button></p>
+                <p class="text-sm text-slate-400">Didn&#39;t receive code? <button class="text-blue-600 hover:underline">Resend</button></p>
             </div>
         </div>
     </div>
@@ -421,7 +571,7 @@
             <div class="bg-white rounded-3xl p-8 w-full max-w-md shadow-2xl relative slide-in text-center">
                 <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4"><i data-lucide="alert-circle" class="w-8 h-8 text-red-600"></i></div>
                 <h2 class="text-2xl font-bold text-slate-900 mb-2">Network Error</h2>
-                <p class="text-slate-500 mb-6">We're experiencing technical difficulties processing your transfer. Please contact customer support for assistance.</p>
+                <p class="text-slate-500 mb-6">We&#39;re experiencing technical difficulties processing your transfer. Please contact customer support for assistance.</p>
                 <div class="bg-slate-50 rounded-xl p-4 mb-6 text-left"><p class="text-sm text-slate-600 mb-2"><strong>Reference ID:</strong> #TRX-2024-8847</p><p class="text-sm text-slate-600"><strong>Status:</strong> Pending Review</p></div>
                 <button onclick="contactSupport()" class="w-full bg-gradient-to-r from-blue-600 to-teal-500 text-white py-4 rounded-xl font-bold text-lg hover:shadow-lg transition mb-3">Contact Support</button>
                 <button onclick="closeErrorModal()" class="w-full bg-slate-100 text-slate-700 py-3 rounded-xl font-medium hover:bg-slate-200 transition">Try Again Later</button>
@@ -431,23 +581,29 @@
 
     <div id="settings-page" class="page-section hidden pt-20 min-h-screen bg-slate-50">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div class="flex items-center space-x-4 mb-8"><button onclick="showDashboard()" class="text-slate-600 hover:text-slate-900"><i data-lucide="arrow-left" class="w-6 h-6"></i></button><h1 class="text-3xl font-bold text-slate-900">Settings</h1></div>
+            <div class="flex items-center space-x-4 mb-8">
+                <button onclick="showDashboard()" class="text-slate-600 hover:text-slate-900"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
+                <h1 class="text-3xl font-bold text-slate-900">Settings</h1>
+                <button onclick="toggleTheme()" class="ml-auto p-2 rounded-full hover:bg-slate-200 transition theme-toggle" title="Toggle Dark Mode">
+                    <i data-lucide="moon" id="settings-theme-icon" class="w-5 h-5 text-slate-600"></i>
+                </button>
+            </div>
             <div class="space-y-6">
                 <div class="bg-white rounded-2xl p-6 shadow-sm">
                     <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center"><i data-lucide="user" class="w-5 h-5 mr-2 text-blue-600"></i>Profile Information</h3>
                     <form id="profile-form" onsubmit="updateProfile(event)" class="space-y-4">
-                        <div><label class="block text-sm font-medium text-slate-700 mb-1">Full Name</label><input type="text" id="settings-name" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 outline-none"></div>
-                        <div><label class="block text-sm font-medium text-slate-700 mb-1">Email Address</label><input type="email" id="settings-email" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 outline-none"></div>
-                        <div><label class="block text-sm font-medium text-slate-700 mb-1">Mobile Number</label><input type="tel" id="settings-phone" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 outline-none"></div>
+                        <div><label class="block text-sm font-medium text-slate-700 mb-1">Full Name</label><input type="text" id="settings-name" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 outline-none"/></div>
+                        <div><label class="block text-sm font-medium text-slate-700 mb-1">Email Address</label><input type="email" id="settings-email" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 outline-none"/></div>
+                        <div><label class="block text-sm font-medium text-slate-700 mb-1">Mobile Number</label><input type="tel" id="settings-phone" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 outline-none"/></div>
                         <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-medium hover:bg-blue-700 transition">Save Changes</button>
                     </form>
                 </div>
                 <div class="bg-white rounded-2xl p-6 shadow-sm">
                     <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center"><i data-lucide="lock" class="w-5 h-5 mr-2 text-emerald-600"></i>Security</h3>
                     <form id="password-form" onsubmit="updatePassword(event)" class="space-y-4">
-                        <div><label class="block text-sm font-medium text-slate-700 mb-1">Current Password</label><input type="password" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 outline-none"></div>
-                        <div><label class="block text-sm font-medium text-slate-700 mb-1">New Password</label><input type="password" id="new-password" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 outline-none"></div>
-                        <div><label class="block text-sm font-medium text-slate-700 mb-1">Confirm New Password</label><input type="password" id="confirm-password" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 outline-none"></div>
+                        <div><label class="block text-sm font-medium text-slate-700 mb-1">Current Password</label><input type="password" required="" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 outline-none"/></div>
+                        <div><label class="block text-sm font-medium text-slate-700 mb-1">New Password</label><input type="password" id="new-password" required="" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 outline-none"/></div>
+                        <div><label class="block text-sm font-medium text-slate-700 mb-1">Confirm New Password</label><input type="password" id="confirm-password" required="" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 outline-none"/></div>
                         <button type="submit" class="bg-emerald-600 text-white px-6 py-3 rounded-xl font-medium hover:bg-emerald-700 transition">Update Password</button>
                     </form>
                 </div>
@@ -462,7 +618,13 @@
 
     <div id="history-page" class="page-section hidden pt-20 min-h-screen bg-slate-50">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div class="flex items-center space-x-4 mb-8"><button onclick="showDashboard()" class="text-slate-600 hover:text-slate-900"><i data-lucide="arrow-left" class="w-6 h-6"></i></button><h1 class="text-3xl font-bold text-slate-900">Transaction History</h1></div>
+            <div class="flex items-center space-x-4 mb-8">
+                <button onclick="showDashboard()" class="text-slate-600 hover:text-slate-900"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
+                <h1 class="text-3xl font-bold text-slate-900">Transaction History</h1>
+                <button onclick="toggleTheme()" class="ml-auto p-2 rounded-full hover:bg-slate-200 transition theme-toggle" title="Toggle Dark Mode">
+                    <i data-lucide="moon" id="history-theme-icon" class="w-5 h-5 text-slate-600"></i>
+                </button>
+            </div>
             <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
                 <div class="p-6 border-b border-slate-200 flex justify-between items-center"><div class="flex space-x-2"><button class="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg text-sm font-medium">2024</button><button class="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg text-sm font-medium">2023</button></div><button class="flex items-center space-x-2 text-slate-600 hover:text-slate-900"><i data-lucide="download" class="w-5 h-5"></i><span>Export</span></button></div>
                 <div id="full-history-list" class="divide-y divide-slate-200"></div>
@@ -475,7 +637,7 @@
         <div class="p-6 space-y-4 overflow-y-auto h-full pb-24">
             <div class="p-4 bg-blue-50 rounded-xl border-l-4 border-blue-500"><div class="flex justify-between items-start mb-2"><h4 class="font-semibold text-slate-800">New Feature Available</h4><span class="text-xs text-slate-400">2h ago</span></div><p class="text-sm text-slate-600">Instant international transfers are now live! Send money to 150+ countries in seconds.</p></div>
             <div class="p-4 bg-emerald-50 rounded-xl border-l-4 border-emerald-500"><div class="flex justify-between items-start mb-2"><h4 class="font-semibold text-slate-800">Cashback Earned</h4><span class="text-xs text-slate-400">1d ago</span></div><p class="text-sm text-slate-600">You earned $45.00 cashback from your purchases this month. Check your rewards.</p></div>
-            <div class="p-4 bg-purple-50 rounded-xl border-l-4 border-purple-500"><div class="flex justify-between items-start mb-2"><h4 class="font-semibold text-slate-800">Security Alert</h4><span class="text-xs text-slate-400">2d ago</span></div><p class="text-sm text-slate-600">New device login detected from Chrome on Windows. If this wasn't you, contact support immediately.</p></div>
+            <div class="p-4 bg-purple-50 rounded-xl border-l-4 border-purple-500"><div class="flex justify-between items-start mb-2"><h4 class="font-semibold text-slate-800">Security Alert</h4><span class="text-xs text-slate-400">2d ago</span></div><p class="text-sm text-slate-600">New device login detected from Chrome on Windows. If this wasn&#39;t you, contact support immediately.</p></div>
             <div class="p-4 bg-orange-50 rounded-xl border-l-4 border-orange-500"><div class="flex justify-between items-start mb-2"><h4 class="font-semibold text-slate-800">Maintenance Notice</h4><span class="text-xs text-slate-400">3d ago</span></div><p class="text-sm text-slate-600">Scheduled maintenance on March 25, 2024 from 2:00 AM - 4:00 AM EST. Services may be limited.</p></div>
         </div>
     </div>
@@ -483,8 +645,13 @@
     <div id="admin-page" class="page-section hidden pt-20 min-h-screen bg-slate-900 text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="flex justify-between items-center mb-8">
-                <div class="flex items-center space-x-4"><button onclick="showPage('landing-page')" class="text-slate-400 hover:text-white"><i data-lucide="arrow-left" class="w-6 h-6"></i></button><div><h1 class="text-3xl font-bold">Admin Dashboard</h1><p class="text-slate-400">System Management Portal</p></div></div>
-                <button onclick="adminLogout()" class="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-lg font-medium transition">Exit Admin</button>
+                <div class="flex items-center space-x-4"><button onclick="showPage(&#39;landing-page&#39;)" class="text-slate-400 hover:text-white"><i data-lucide="arrow-left" class="w-6 h-6"></i></button><div><h1 class="text-3xl font-bold">Admin Dashboard</h1><p class="text-slate-400">System Management Portal</p></div></div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-slate-700 transition theme-toggle" title="Toggle Dark Mode">
+                        <i data-lucide="moon" id="admin-theme-icon" class="w-5 h-5 text-slate-300"></i>
+                    </button>
+                    <button onclick="adminLogout()" class="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-lg font-medium transition">Exit Admin</button>
+                </div>
             </div>
             <div class="grid md:grid-cols-4 gap-6 mb-8">
                 <div class="bg-slate-800 rounded-2xl p-6"><p class="text-slate-400 text-sm mb-1">Total Users</p><h3 class="text-3xl font-bold">2,847</h3><p class="text-emerald-400 text-sm mt-2">+12 this week</p></div>
@@ -499,14 +666,14 @@
                     <div>
                         <label class="block text-sm font-medium text-slate-300 mb-2">Change User Name</label>
                         <div class="flex space-x-2">
-                            <input type="text" id="admin-change-name" class="flex-1 px-4 py-3 rounded-xl bg-slate-700 border border-slate-600 text-white focus:border-purple-500 outline-none" placeholder="Enter new name">
+                            <input type="text" id="admin-change-name" class="flex-1 px-4 py-3 rounded-xl bg-slate-700 border border-slate-600 text-white focus:border-purple-500 outline-none" placeholder="Enter new name"/>
                             <button onclick="adminChangeName()" class="bg-purple-600 hover:bg-purple-700 px-4 py-3 rounded-xl font-medium transition">Update</button>
                         </div>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-300 mb-2">Add Funds to Balance</label>
                         <div class="flex space-x-2">
-                            <input type="number" id="admin-add-funds" class="flex-1 px-4 py-3 rounded-xl bg-slate-700 border border-slate-600 text-white focus:border-purple-500 outline-none" placeholder="Enter amount">
+                            <input type="number" id="admin-add-funds" class="flex-1 px-4 py-3 rounded-xl bg-slate-700 border border-slate-600 text-white focus:border-purple-500 outline-none" placeholder="Enter amount"/>
                             <button onclick="adminAddFunds()" class="bg-emerald-600 hover:bg-emerald-700 px-4 py-3 rounded-xl font-medium transition">Add</button>
                         </div>
                     </div>
@@ -530,7 +697,7 @@
                 <div class="p-6 border-b border-slate-700"><h3 class="text-xl font-bold">Recent System Logs</h3></div>
                 <div class="divide-y divide-slate-700">
                     <div class="p-4 flex justify-between items-center hover:bg-slate-700/50 transition"><div class="flex items-center space-x-3"><div class="w-2 h-2 bg-emerald-500 rounded-full"></div><span class="text-sm">Database backup completed successfully</span></div><span class="text-slate-400 text-sm">2 mins ago</span></div>
-                    <div class="p-4 flex justify-between items-center hover:bg-slate-700/50 transition"><div class="flex items-center space-x-3"><div class="w-2 h-2 bg-blue-500 rounded-full"></div><span class="text-sm">New user registration: john.doe@email.com</span></div><span class="text-slate-400 text-sm">5 mins ago</span></div>
+                    <div class="p-4 flex justify-between items-center hover:bg-slate-700/50 transition"><div class="flex items-center space-x-3"><div class="w-2 h-2 bg-blue-500 rounded-full"></div><span class="text-sm">New user registration: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3b4e485e497b5e435a564b575e15585456">[email&#160;protected]</a></span></div><span class="text-slate-400 text-sm">5 mins ago</span></div>
                     <div class="p-4 flex justify-between items-center hover:bg-slate-700/50 transition"><div class="flex items-center space-x-3"><div class="w-2 h-2 bg-yellow-500 rounded-full"></div><span class="text-sm">Security scan initiated</span></div><span class="text-slate-400 text-sm">15 mins ago</span></div>
                     <div class="p-4 flex justify-between items-center hover:bg-slate-700/50 transition"><div class="flex items-center space-x-3"><div class="w-2 h-2 bg-emerald-500 rounded-full"></div><span class="text-sm">Automated fraud check passed</span></div><span class="text-slate-400 text-sm">1 hour ago</span></div>
                 </div>
@@ -548,7 +715,7 @@
         </div>
     </div>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         lucide.createIcons();
         
         const state = { 
@@ -558,6 +725,7 @@
             balanceHidden: true, 
             cardHidden: true, 
             accountLocked: false,
+            darkMode: false,
             currentUser: { 
                 name: '', 
                 email: '', 
@@ -587,6 +755,14 @@
         window.onload = function() { 
             const savedSession = localStorage.getItem('globalSpireSession'); 
             const savedState = localStorage.getItem('globalSpireState');
+            const savedTheme = localStorage.getItem('globalSpireTheme');
+            
+            if (savedTheme === 'dark') {
+                state.darkMode = true;
+                document.body.classList.add('dark-mode');
+                updateThemeIcons();
+            }
+            
             if (savedState) {
                 const parsed = JSON.parse(savedState);
                 state.currentUser.balance = parsed.balance || state.currentUser.balance;
@@ -619,6 +795,28 @@
             renderTransactions(); 
             lucide.createIcons();
         };
+        
+        function toggleTheme() {
+            state.darkMode = !state.darkMode;
+            if (state.darkMode) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('globalSpireTheme', 'dark');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('globalSpireTheme', 'light');
+            }
+            updateThemeIcons();
+            lucide.createIcons();
+        }
+        
+        function updateThemeIcons() {
+            const icons = document.querySelectorAll('[id$="-theme-icon"], #theme-icon, #theme-icon-mobile');
+            icons.forEach(icon => {
+                if (icon) {
+                    icon.setAttribute('data-lucide', state.darkMode ? 'sun' : 'moon');
+                }
+            });
+        }
         
         function saveState() {
             localStorage.setItem('globalSpireState', JSON.stringify({
@@ -747,7 +945,13 @@
         }
         
         function updateUIForLogin() { 
-            document.getElementById('nav-links').innerHTML = `<button onclick="showDashboard()" class="text-slate-600 hover:text-blue-600 font-medium transition">Dashboard</button><button onclick="logout()" class="bg-red-50 text-red-600 px-6 py-2.5 rounded-full font-medium hover:bg-red-100 transition">Logout</button>`; 
+            document.getElementById('nav-links').innerHTML = `
+                <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-slate-100 transition theme-toggle" title="Toggle Dark Mode">
+                    <i data-lucide="${state.darkMode ? 'sun' : 'moon'}" class="w-5 h-5 text-slate-600"></i>
+                </button>
+                <button onclick="showDashboard()" class="text-slate-600 hover:text-blue-600 font-medium transition">Dashboard</button>
+                <button onclick="logout()" class="bg-red-50 text-red-600 px-6 py-2.5 rounded-full font-medium hover:bg-red-100 transition">Logout</button>
+            `; 
         }
         
         function updateDashboardInfo() { 
@@ -1003,7 +1207,13 @@
                 state.isAdmin = false; 
                 state.user = null; 
                 localStorage.removeItem('globalSpireSession'); 
-                document.getElementById('nav-links').innerHTML = `<button onclick="toggleLoginModal()" class="text-slate-600 hover:text-blue-600 font-medium transition">Sign In</button><button onclick="showSignupPage()" class="bg-slate-900 text-white px-6 py-2.5 rounded-full font-medium hover:bg-slate-800 transition transform hover:scale-105">Open Account</button>`; 
+                document.getElementById('nav-links').innerHTML = `
+                    <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-slate-100 transition theme-toggle" title="Toggle Dark Mode">
+                        <i data-lucide="${state.darkMode ? 'sun' : 'moon'}" class="w-5 h-5 text-slate-600"></i>
+                    </button>
+                    <button onclick="toggleLoginModal()" class="text-slate-600 hover:text-blue-600 font-medium transition">Sign In</button>
+                    <button onclick="showSignupPage()" class="bg-slate-900 text-white px-6 py-2.5 rounded-full font-medium hover:bg-slate-800 transition transform hover:scale-105">Open Account</button>
+                `; 
                 showPage('landing-page'); 
                 lucide.createIcons(); 
             } 
@@ -1122,5 +1332,5 @@
         
         lucide.createIcons();
     </script>
-</body>
-                          </html>
+
+</body></html>
